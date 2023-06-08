@@ -1,0 +1,27 @@
+{
+  "name": "scraperpython",
+  "version": "1.0.0",
+  "description": "",
+  "main": "hotelScraper.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omr50/WebScraper.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/omr50/WebScraper/issues"
+  },
+  "homepage": "https://github.com/omr50/WebScraper#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "express": "^4.18.2",
+    "fastq": "^1.15.0",
+    "mongodb": "^5.6.0",
+    "mongoose": "^7.2.2"
+  }
+}
