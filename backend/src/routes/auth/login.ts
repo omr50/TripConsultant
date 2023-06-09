@@ -2,7 +2,7 @@ import express, {Express, Request, Response } from 'express'
 const router = express.Router();
 
 // Route handler for the login endpoint
-router.post('/login', (req: Request, res: Response) => {
+router.post('/', (req: Request, res: Response) => {
   // Handle login logic here
 });
 

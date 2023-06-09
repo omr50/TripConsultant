@@ -1,6 +1,23 @@
-import { Schema, model, connect, Types, connections } from "mongoose";
-import hotelSchema from "../schemas/hotelSchema";
+import { Types } from "mongoose";
+import { Typegoose, prop } from "typegoose";
 
-const Hotel = model("Hotel", hotelSchema, "hotels")
+export class HotelSchema extends Typegoose {
+  @prop({required: true})
+  name!: string
+  @prop()
+  region!: [String]
+  @prop()
+  address!: String
+  @prop()
+  reviews!: [Types.ObjectId]
+  @prop()
+  images!: [String]
+  @prop()
+  price_range!: String
+}
+
+const Hotel = new HotelSchema().getModelForClass(HotelSchema, { schemaOptions: { collection: 'hotels' }});
 
 export default Hotel;
+
+

@@ -8,7 +8,11 @@ async function connectDB() {
   try {
     const connectionString = process.env.CONNECTION_STRING || '';
     console.log(connectionString)
-    await connect(connectionString, {dbName: 'tripDB'});
+    await connect(connectionString, {
+      dbName: 'tripDB',
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     console.log("Connected to Database");
   } catch (error) {
     console.error("Database connection error:", error);

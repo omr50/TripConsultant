@@ -1,7 +1,18 @@
-import { Schema, model, connect, Types, connections } from "mongoose";
-import reviewSchema from "../schemas/reviewSchema";
-import User from "./User";
+import { Types } from "mongoose";
+import { Typegoose, prop } from "typegoose";
 
-const Review = model("Review", reviewSchema, "reviews")
+export class ReviewSchema extends Typegoose {
+  @prop({required: true})
+  hotelId!: Types.ObjectId
+  @prop({required: true})
+  userId!: Types.ObjectId
+  @prop({required: true})
+  rating!: String
+  @prop()
+  title!: String
+  @prop()
+  text!: String
+}
 
+const Review = new ReviewSchema().getModelForClass(ReviewSchema, { schemaOptions: { collection: 'reviews' }});
 export default Review;
