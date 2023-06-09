@@ -1,9 +1,16 @@
 import express, {Express, Request, Response } from 'express'
-const router = express.Router();
+const loginRouter = express.Router();
+import { login } from '../../services/loginService';
 
 // Route handler for the login endpoint
-router.post('/', (req: Request, res: Response) => {
-  // Handle login logic here
+loginRouter.post('/', async (req: Request, res: Response) => {
+  try {
+    const foundUser = await login(req.body);
+    //console.log('found user', foundUser.token);
+    return res.status(200).send(foundUser);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
 });
 
-module.exports = router;
+export default loginRouter

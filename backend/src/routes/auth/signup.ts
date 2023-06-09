@@ -1,11 +1,11 @@
 import express, {Express, Request, Response } from 'express'
 import User from '../../models/User';
-const userRouter = express.Router();
+const signupRouter = express.Router();
 
 // so the signup route gets user credentials and it will
 // create a new user with those credentials. This is
 // if the user does not exist already of course.
-userRouter.post('/', async (req: Request, res: Response) => {
+signupRouter.post('/', async (req: Request, res: Response) => {
   // we don't really need to check if it exists first
   // we can just try to save it, if there is an error
   // from the db since it has type checking then we
@@ -24,12 +24,17 @@ userRouter.post('/', async (req: Request, res: Response) => {
   })
 
   try {
-    await newUser.save();
-    return res.status(200).send(`Successfully created User: ${newUser}`)
+    const existingUser = await User.findOne({name: newUser.name})
+    if (!existingUser){
+      await newUser.save();
+      return res.status(200).send(`Successfully created User: ${newUser}`)
+    }
+    else 
+      throw new Error();
   } catch (error) {
     return res.status(409).send(`Encountered Error: ${error}`)
 
   }
 });
 
-export default userRouter
+export default signupRouter

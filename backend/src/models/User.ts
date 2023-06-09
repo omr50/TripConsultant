@@ -15,7 +15,9 @@ export class UserSchema extends Typegoose {
   name!: string
   @prop({required: true, unique: true})
   password!: String
-  @prop({required: true, unique: true})
+  @prop({ unique: true })
+  email!: String
+  @prop()
   alias!: String
   @prop()
   location!: String
