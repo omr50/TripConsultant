@@ -16,7 +16,7 @@ signupRouter.post('/', async (req: Request, res: Response) => {
    const data = req.body;
 
   const newUser = new User({
-    name: data.name,
+    name: data.username,
     password: data.password,
     alias: data.alias,
     location: data.location,
@@ -24,7 +24,7 @@ signupRouter.post('/', async (req: Request, res: Response) => {
   })
 
   try {
-    const existingUser = await User.findOne({name: newUser.name})
+    const existingUser = await User.findOne({name: newUser.username})
     if (!existingUser){
       await newUser.save();
       return res.status(200).send(`Successfully created User: ${newUser}`)

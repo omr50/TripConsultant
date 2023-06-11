@@ -12,7 +12,7 @@ import bcrypt from 'bcrypt'
 })
 export class UserSchema extends Typegoose {
   @prop({required: true, unique: true})
-  name!: string
+  username!: string
   @prop({required: true, unique: true})
   password!: String
   @prop({ unique: true })
@@ -23,6 +23,8 @@ export class UserSchema extends Typegoose {
   location!: String
   @prop()
   reviews!: [Types.ObjectId]
+  @prop()
+  authProvider!: String
 }
 
 const User = new UserSchema().getModelForClass(UserSchema, { schemaOptions: { collection: 'users' }});
