@@ -10,16 +10,18 @@ signupRouter.post('/', async (req: Request, res: Response) => {
   // we can just try to save it, if there is an error
   // from the db since it has type checking then we
   // respond with error.
+  console.log('a',req.body)
   if (!req.body)
    return res.status(400).send(`Enter a valid user`)
   
    const data = req.body;
 
   const newUser = new User({
-    name: data.username,
+    email: data.email,
+    username: data.username,
     password: data.password,
     alias: data.alias,
-    location: data.location,
+    location: data.location ? data.location : '',
     reviews: [],
   })
 

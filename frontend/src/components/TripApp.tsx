@@ -4,7 +4,8 @@ import { useAuth } from './auth/AuthContext';
 import { Navigate } from 'react-router-dom'
 import AuthProvider from './auth/AuthContext';
 import WelcomeComponent from './WelcomeComponent';
-import LoginComponent from './LoginComponent';
+import LoginComponent from './loginComponent/LoginComponent';
+import SignupComponent from './SignupComponent';
 interface MyComponentProps {
   children: ReactNode;
 }
@@ -17,15 +18,13 @@ function AuthenticatedRoute(props: MyComponentProps) {
 }
 
 function TripApp() {
-    
     return (
         <div className="TodoApp">
             <AuthProvider>
                 <BrowserRouter>
                     <Routes>
                         <Route path='/' element={<WelcomeComponent/>}/>
-                        <Route path='/login' element={<LoginComponent/>}/>
-                        {/* <Route path='/signup' element={<SignUpComponent/>}/> */}
+                        <Route path='/signup' element={<SignupComponent/>}/>
                     </Routes>
                     {/* <FooterComponent/> */}
                 </BrowserRouter>

@@ -11,4 +11,4 @@ export const executeJwtAuthenticationService = async (username: String, password
   return await apiClient.post(`/login`, {username, password})
 }
 
-export const signUpService = (username: String, password: String, alias: String, location: String)=> apiClient.post(`/signup`, {username, password, alias, location})
+export const signUpService = (username: String, password: String, email: String, alias: String)=> apiClient.post(`/signup`, {email, username, password, alias})

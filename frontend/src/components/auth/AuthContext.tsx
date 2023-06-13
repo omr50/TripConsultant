@@ -6,7 +6,7 @@ import { executeJwtAuthenticationService } from "../api/AuthenticationApiService
 // 1. create context
 type IAuth = {
   isAuthenticated: boolean;
-  login:(username: String, password: String, alias: String, location: String) => Promise<boolean>;
+  login:(username: String, password: String) => Promise<boolean>;
   logout: () => void;
   username: String | null;
   token: String | null;
@@ -25,7 +25,7 @@ export default function AuthProvider({ children }: Props) {
     const [token, setToken] = useState<String | null>(null)
     const [myInterceptor, setMyInterceptor] = useState(null)
 
-    async function login(username: String, password: String, alias: String, location: String) {
+    async function login(username: String, password: String) {
         try {
         const response = await executeJwtAuthenticationService(username, password)
         if (response.status == 200){
