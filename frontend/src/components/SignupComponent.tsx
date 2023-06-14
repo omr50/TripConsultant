@@ -1,39 +1,71 @@
-import { ErrorMessage, Field, Form, Formik } from "formik"
-import { useEffect, useState } from "react"
-import { Button } from "react-bootstrap"
+import React, { useState } from "react";
+import { Button, Form } from "react-bootstrap"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { signUpService } from "./api/AuthenticationApiService"
-
+import LoginUserPassword from "./loginComponent/subComponents/LoginUserPassword";
+import LoginOptions from "./loginComponent/subComponents/LoginOptionsComponent";
+import './loginComponent/loginComponentStyles.css'
 interface Error {
-    email: String | null;
-    username: String | null;
-    password1: String | null;
-    password2: String | null;
-    alias: String | null;
+        [key: string]: any;
+    };
+
+interface ChildProp {
+    changeComp: (newComp: React.ReactNode, type: String) => void;
 }
 
-export default function SignupComponent() {
+const SignupComponent: React.FC<ChildProp> = (props) => {
     const [username, setUsername] = useState('')
     const [alias, setAlias] = useState('')
     const [email, setEmail] = useState('')
-    const [password1, setPassword1] = useState('')
-    const [password2, setPassword2] = useState('')
+    const [password, setPassword] = useState('')
     const [userExists, setUserExists] = useState(false)
+    const [error, setError] = useState<Error>({})
     const navigate = useNavigate()
 
-    function onSubmit(values: {
-        email: string;
-        username: string;
-        password1: string;
-        password2: string;
-        alias: string;
-    }) {
-        setUserExists(false)
-        setEmail(values.email)
-        setPassword1(values.password1)
-        setPassword2(values.password2)
-        setAlias(values.alias)
-        signUpService(values.username, values.password1, values.email, values.alias)
+    function handleUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setUsername(event.target.value)
+      }
+    
+    function handleAliasChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setAlias(event.target.value)
+    }
+
+    function handleEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setEmail(event.target.value)
+      }
+    
+    function handlePasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setPassword(event.target.value)
+    }
+
+    function handleSubmit() {
+        if (email == '') {
+            let newError = { ...error };
+            newError.email = "Enter a valid email";
+            setError(newError)
+        } 
+        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+            let newError = { ...error };
+            newError.email = "Invalid Email";
+            setError(newError)
+        }
+        if (username.length < 3) {
+            let newError = { ...error };
+            newError.username = "Username must be greater than 3 characters.";
+            setError(newError)
+        }
+        if (password.length < 6) {
+            let newError = { ...error };
+            newError.password = "Password must be at least 6 characters.";
+            setError(newError)
+        }
+        if (alias.length < 1) {
+            let newError = { ...error };
+            newError.alias = "Alias must be at least 1 character.";
+            setError(newError)
+        }
+        if (Object.keys(error).length != 0){
+        signUpService(username, password, email, alias)
         .then(response=> {
             // user successfully stored in db.
             // redirect to login page (add message some how)
@@ -48,111 +80,74 @@ export default function SignupComponent() {
             }
         } )
     }
-    function validate(values: {
-        email: string;
-        username: string;
-        password1: string;
-        password2: string;
-        alias: string;
-    }) {
-        setUserExists(false)
-        let errors: { [key: string]: any } = {};
-
-        if (!values.email) {
-            errors.email = 'Required'
-        } 
-        else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-            errors.email = 'Invalid email address'
-        }
-        else if (values.username.length < 3) {
-            errors.username = 'Username must be at least 3 characters.'
-        }
-        else if (values.password1 != values.password2) {
-            errors.password1 = 'Passwords Must Be Equal'
-        }
-        else if (values.password1.length < 6) {
-            errors.password1 = 'Password must be at least 6 characters.'
-        }
-        else if (values.alias.length < 1) {
-            errors.alias = 'Must have at least 1 character.'
-        }
-        console.log(values)
-        return errors
     }
-    return (
-        <div style={{'display':'flex', 'flexDirection':'column', 'alignItems':'center'}}>
-            {/* if the user exists in db then inform them to change username. */}
-            {userExists? <div className="alert alert-danger mt-3">Username Already Exists.</div> : ""}
-            <h1 style={{'color':'#0070E0'}}> Create Account </h1>
-            <div>
-            <Formik initialValues={{email, username, password1, password2, alias}}
-            enableReinitialize={true}
-            onSubmit = {onSubmit}
-            validate={validate}
-            validateOnChange={false}
-            validateOnBlur={false}
-            >
-                {
-                    (props) =>(
-                        <Form>
-                            <ErrorMessage
-                            name="email"
-                            component="div"
-                            className="alert alert-danger"
-                            />
-                            <ErrorMessage
-                            name="username"
-                            component="div"
-                            className="alert alert-danger"
-                            />
-                            <ErrorMessage
-                            name="password1"
-                            component="div"
-                            className="alert alert-danger"
-                            />
-                            <ErrorMessage
-                            name="password2"
-                            component="div"
-                            className="alert alert-danger"
-                            />
-                            <ErrorMessage
-                            name="alias"
-                            component="div"
-                            className="alert alert-danger"
-                            />
-                             <fieldset className="form-group">
-                                <label>email</label>
-                                <Field type="email" className="form-control" name="email"/>
-                            </fieldset>
-                            <fieldset className="form-group">
-                                <label>username</label>
-                                <Field type="text" className="form-control" name="username"/>
-                            </fieldset>
 
-                            <fieldset className="form-group">
-                                <label>password</label>
-                                <Field type="password" className="form-control" name="password1"/>
-                            </fieldset>
-                            <fieldset className="form-group">
-                                <label>re-enter password</label>
-                                <Field type="password" className="form-control" name="password2"/>
-                            </fieldset>
-                            <fieldset className="form-group">
-                                <label>alias</label>
-                                <Field type="text" className="form-control" name="alias"/>
-                            </fieldset>
-                            <div>
-                                <Button variant="secondary" type="submit" size="lg" className="homepage-signup-button mb-3 mt-3">
-                                    Sign up
-                                </Button>
-                            </div>
-                        </Form>
-                    )
-                }
-            </Formik>
-            <Link to={'/login'} className="mb-2 pb-2"> Already Have an Account? Log In</Link>
-            <div><br></br></div>
+        
+    return (
+        <div className="outer-div" style={{'display':'flex', 'flexDirection':'column', 'alignItems':'center'}}>
+        {userExists? <div className="alert alert-danger mt-3">Username Already Exists.</div> : ""}
+        {Object.values(error).map((err: String)=> {
+            return <div className="alert alert-danger mt-3 fs-6">{err}</div>
+        })}
+        <Form className="form-container form-style">
+            <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+            <Form.Group controlId="username" className="form-group">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+                type="text"
+                value={email}
+                onChange={handleEmailChange}
+                placeholder="Username"
+            />
+            </Form.Group>
+
+            <Form.Group controlId="username" className="form-group">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+                type="text"
+                value={username}
+                onChange={handleUsernameChange}
+                placeholder="Username"
+            />
+            </Form.Group>
+
+            <Form.Group controlId="username" className="form-group">
+            <Form.Label>Alias</Form.Label>
+            <Form.Control
+                type="text"
+                value={alias}
+                    onChange={handleAliasChange}
+                placeholder="Username"
+            />
+            </Form.Group>
+
+            <Form.Group controlId="password" className="form-group">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+                type="password"
+                value={password}
+                onChange={handlePasswordChange}
+                placeholder="Password"
+            />
+            </Form.Group>
+            <div className="form-group">
+            <a className="forgot-link" href="/">Forgot Password?</a>
             </div>
-        </div>
+            </div>
+            <div className="button-align">
+            <Button onClick={handleSubmit} className="login-button">
+            Sign Up
+            </Button>
+
+            <div className="bottom-line">
+            <span className="lines">&#x2015;&#x2015;&#x2015;&#x2015;&#x2015;</span>Already a member?<span className="lines">&#x2015;&#x2015;&#x2015;&#x2015;&#x2015;</span>
+            </div>
+            </div>
+            <div className="join-text"><b className="join-link" onClick={()=>{props.changeComp(<LoginUserPassword changeComp={props.changeComp}/>, 'LoginUserPassword')}}>Sign in</b> using your Tripadvisor account.</div>
+
+        </Form>
+      </div>
     )
-}
+    }
+
+export default SignupComponent;

@@ -3,8 +3,13 @@ import { useNavigate } from "react-router-dom"
 import { Button, Form } from "react-bootstrap";
 import { useAuth } from "../../auth/AuthContext";
 import '../loginComponentStyles.css'
+import SignupComponent from "../../SignupComponent";
 
-function LoginUserPassword() {
+interface ChildProp {
+  changeComp: (newComp: React.ReactNode, type: String) => void
+}
+
+const LoginUserPassword: React.FC<ChildProp> = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showErrorMessage, setShowErrorMessage] = useState(false)
@@ -61,15 +66,15 @@ function LoginUserPassword() {
         </div>
         </div>
         <div className="button-align">
-        <Button onClick={handleSubmit} className="login-button">
-          Login
-        </Button>
+          <Button onClick={handleSubmit} className="login-button">
+            Login
+          </Button>
 
-        <div className="bottom-line">
-          <span className="lines">&#x2015;&#x2015;&#x2015;&#x2015;&#x2015;</span>Not a member?<span className="lines">&#x2015;&#x2015;&#x2015;&#x2015;&#x2015;</span>
+          <div className="bottom-line">
+            <span className="lines">&#x2015;&#x2015;&#x2015;&#x2015;&#x2015;</span>Not a member?<span className="lines">&#x2015;&#x2015;&#x2015;&#x2015;&#x2015;</span>
+          </div>
         </div>
-        </div>
-        <div className="join-text"><a className="join-link" href="/">Join</a> to unlock the best of Tripadvisor.</div>
+        <div className="join-text"><b className="join-link" onClick={()=>{props.changeComp(<SignupComponent changeComp={props.changeComp}/>, 'SignupComponent')}}>Join</b> to unlock the best of Tripadvisor.</div>
 
       </Form>
       </div>

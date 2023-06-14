@@ -45,7 +45,7 @@ const LoginComponent: React.FC<ChildProp> = (props) => {
       <h1 className="close-button" onClick={props.closeForm}>
         &#x2715;
       </h1>
-      {componentType == ('LoginUserPassword' || 'LoginGoogle') ? <h1 className="back-button" onClick={()=> {changeComponent(<LoginOptions changeComp={changeComponent}/>, 'LoginOptions')}}>&#x2039;</h1> : ''}
+      {(componentType == 'LoginUserPassword' ||componentType == 'SignupComponent') ? <h1 className="back-button" onClick={()=> {changeComponent(<LoginOptions changeComp={changeComponent}/>, 'LoginOptions')}}>&#x2039;</h1> : ''}
       <div style={{margin: '10px'}}></div>
       <img src={TripLogo} alt="Trip Advisor Logo" className="svg-logo" />
       {component}
