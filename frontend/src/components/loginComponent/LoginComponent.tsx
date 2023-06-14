@@ -8,20 +8,21 @@ import LoginUserPassword from "./subComponents/LoginUserPassword"
 import LoginOptions from "./subComponents/LoginOptionsComponent"
 
 interface ChildProp {
-  closeForm: () => void
+  closeForm: () => void;
 }
 
 const LoginComponent: React.FC<ChildProp> = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showErrorMessage, setShowErrorMessage] = useState(false)
-  const [displayForm, setDisplayForm] = useState('choose-form')
   const [component, setComponent] = useState<React.ReactNode>(<LoginOptions changeComp={changeComponent}/>)
+  const [componentType, setComponentType] = useState<String>('LoginOption')
 
   const navigate = useNavigate()
   const authContext = useAuth()
-  function changeComponent(newComponent: React.ReactNode) {
+  function changeComponent(newComponent: React.ReactNode, type: String) {
     setComponent(newComponent)
+    setComponentType(type)
   }
   function handleUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
     setUsername(event.target.value)
@@ -44,12 +45,9 @@ const LoginComponent: React.FC<ChildProp> = (props) => {
       <h1 className="close-button" onClick={props.closeForm}>
         &#x2715;
       </h1>
+      {componentType == ('LoginUserPassword' || 'LoginGoogle') ? <h1 className="back-button" onClick={()=> {changeComponent(<LoginOptions changeComp={changeComponent}/>, 'LoginOptions')}}>&#x2039;</h1> : ''}
+      <div style={{margin: '10px'}}></div>
       <img src={TripLogo} alt="Trip Advisor Logo" className="svg-logo" />
-      {showErrorMessage && (
-        <div className="errorMessage alert bg-warning text-white" style={{ fontSize: '15px', textAlign: 'center', margin: '10px' }}>
-          Authentication Failed. Check credentials or refresh the page
-        </div>
-      )}
       {component}
     </div>
   )

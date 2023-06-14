@@ -1,0 +1,41 @@
+.nav-head {
+  background-color: white !important;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.nav-link-style {
+  margin-top: 4px;
+  font-weight: 600;
+  color: black;
+  margin: 10px;
+  transition: background-color 0.3s, border-radius 0.25s;
+  min-width: fit-content;
+}
+
+.nav-link-style:hover  {
+  border-radius: 20px;
+  background-color: rgb(216, 203, 203);
+}
+
+.signin-button-user-password {
+  background-color: black;
+  border-color: black;
+  border-radius: 30px;
+  margin-top: 5px;
+  min-width: 90px;
+}
+
+.signin-button-user-password:hover {
+  background-color: rgb(57, 57, 55);
+  border-color: rgb(57, 57, 55);
+}
+
+.svg-home-logo {
+  width: 30%;
+  padding-top: 0px;
+  margin-top: 0px;
+}

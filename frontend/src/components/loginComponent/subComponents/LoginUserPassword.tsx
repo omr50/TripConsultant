@@ -29,6 +29,12 @@ function LoginUserPassword() {
     }
   }
     return (
+      <div>
+        {showErrorMessage && (
+        <div className="errorMessage alert bg-danger text-white" style={{ fontSize: '15px', textAlign: 'center', margin: '10px' }}>
+          Authentication Failed. Check credentials or refresh the page
+        </div>
+      )}
       <Form className="form-container">
       <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
         <Form.Group controlId="username" className="form-group">
@@ -51,15 +57,23 @@ function LoginUserPassword() {
           />
         </Form.Group>
         <div className="form-group">
-          <a href="/">Forgot Password?</a>
+          <a className="forgot-link" href="/">Forgot Password?</a>
         </div>
         </div>
         <div className="button-align">
         <Button onClick={handleSubmit} className="login-button">
           Login
         </Button>
+
+        <div className="bottom-line">
+          <span className="lines">&#x2015;&#x2015;&#x2015;&#x2015;&#x2015;</span>Not a member?<span className="lines">&#x2015;&#x2015;&#x2015;&#x2015;&#x2015;</span>
         </div>
+        </div>
+        <div className="join-text"><a className="join-link" href="/">Join</a> to unlock the best of Tripadvisor.</div>
+
       </Form>
+      </div>
+
     )
 }
 

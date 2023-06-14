@@ -7,15 +7,17 @@
   position: fixed;
   font-size: 20px;
   border-radius: 20px;
-  margin-top: 100px;
+  margin-top: 50px;
   left: 50%;
   transform: translateX(-50%);
-  width: 32%;
-  min-height: 450px;
+  width: 24%;
+  min-width: 400px;
+  min-height: 550px;
   max-height: 80%;
   margin-bottom: 20px;
   background-color: rgba(255, 255, 255);
   z-index: 1001; 
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
 }
 
 .close-button {
@@ -29,6 +31,22 @@
   padding-top: 6px;
 }
 
+.back-button {
+  font-size: 50px;
+  font-weight: 200;
+  position: absolute;
+  cursor: pointer;
+  color: black;
+  top: -18px;
+  left: 10px;
+  padding-right: 20px;
+  padding-top: 6px;
+}
+
+.back-button:hover {
+  color: rgb(103, 96, 96);
+}
+
 .close-button:hover {
   color: rgb(71, 67, 67);
 }
@@ -36,11 +54,12 @@
 .svg-logo {
   width: 50%;
   padding-top: 30px;
+  margin-top: 10px;
   padding-left: 20px;
 }
 
 .signup-text {
-  width: 80%;
+  min-width: 80%;
   text-align: left;
   margin-left: auto;
   margin-right: auto;
@@ -67,11 +86,13 @@
 .login-button {
   background-color: black;
   color: white;
-  width: 200px;
+  width: 300px;
+  max-width: 80%;
   height: 50px;
   border-radius: 25px;
   border: 0px solid rgb(49, 46, 46);
   text-align: center;
+  margin-top: 10px;
 }
 
 .login-button:hover {
@@ -80,9 +101,24 @@
 
 .form-group{
     width:70%;
-    padding-top: 25px;
+    padding-top: 27px;
 }
 
+.forgot-link {
+  width: 70%;
+  padding-top: 25px;
+  color: black;
+}
+
+.join-link {
+  color: black;
+}
+
+.join-text {
+  font-size: 15px;
+  margin-top: 14px;
+  text-align: center;
+}
 
 .form-groups {
   display: flex;
@@ -95,4 +131,57 @@
   flex-direction: column;
   align-items:center;
   padding-top: 25px;
+}
+
+.bottom-line {
+  margin-top: 20px;
+  font-size: 1rem;
+  min-width: 70%;
+  max-width: 80%;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.lines {
+  color: rgb(215, 201, 201);
+  font-weight: 100;
+}
+
+.signin-buttons {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.signin-button {
+  background-color: rgb(255, 255, 255) !important;
+  color: black;
+  border-color: rgb(0, 0, 0) !important;
+  text-align: center;
+  width: 90%;
+  margin-top: 50px;
+  border-radius: 30px;
+  position: relative;
+  padding: 20px 20px;
+}
+
+.signin-button:hover {
+  color: rgb(93, 87, 87);
+  box-shadow: 0 0 9px rgba(0, 0, 0, 0.4);
+}
+
+.google-image {
+  position: absolute;
+  left: 9px;
+  top: 13px;
+}
+
+.mail-image {
+  position: absolute;
+  left: 13px;
+  top: 18px;
+}
+
+.subtext-div {
+  margin-top: 20px;
 }

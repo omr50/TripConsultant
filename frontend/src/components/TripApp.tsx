@@ -6,6 +6,7 @@ import AuthProvider from './auth/AuthContext';
 import WelcomeComponent from './WelcomeComponent';
 import LoginComponent from './loginComponent/LoginComponent';
 import SignupComponent from './SignupComponent';
+import NavigationBar from './NavbarComponent/NavbarComponent';
 interface MyComponentProps {
   children: ReactNode;
 }
@@ -22,9 +23,10 @@ function TripApp() {
         <div className="TodoApp">
             <AuthProvider>
                 <BrowserRouter>
+                    <NavigationBar/>
                     <Routes>
-                        <Route path='/' element={<WelcomeComponent/>}/>
-                        <Route path='/signup' element={<SignupComponent/>}/>
+                          <Route path='' element={<WelcomeComponent/>}/>
+                          <Route path='/signup' element={<SignupComponent/>}/>
                     </Routes>
                     {/* <FooterComponent/> */}
                 </BrowserRouter>
