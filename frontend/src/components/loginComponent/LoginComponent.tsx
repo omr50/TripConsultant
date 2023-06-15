@@ -15,7 +15,7 @@ const LoginComponent: React.FC<ChildProp> = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showErrorMessage, setShowErrorMessage] = useState(false)
-  const [component, setComponent] = useState<React.ReactNode>(<LoginOptions changeComp={changeComponent}/>)
+  const [component, setComponent] = useState<React.ReactNode>(<LoginOptions changeComp={changeComponent} closeForm={props.closeForm}/>)
   const [componentType, setComponentType] = useState<String>('LoginOption')
 
   const navigate = useNavigate()
@@ -45,7 +45,7 @@ const LoginComponent: React.FC<ChildProp> = (props) => {
       <h1 className="close-button" onClick={props.closeForm}>
         &#x2715;
       </h1>
-      {(componentType == 'LoginUserPassword' ||componentType == 'SignupComponent') ? <h1 className="back-button" onClick={()=> {changeComponent(<LoginOptions changeComp={changeComponent}/>, 'LoginOptions')}}>&#x2039;</h1> : ''}
+      {(componentType == 'LoginUserPassword' ||componentType == 'SignupComponent') ? <h1 className="back-button" onClick={()=> {changeComponent(<LoginOptions changeComp={changeComponent} closeForm={props.closeForm}/>, 'LoginOptions')}}>&#x2039;</h1> : ''}
       <div style={{margin: '10px'}}></div>
       <img src={TripLogo} alt="Trip Advisor Logo" className="svg-logo" />
       {component}

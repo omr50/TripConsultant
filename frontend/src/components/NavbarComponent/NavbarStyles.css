@@ -34,8 +34,40 @@
   border-color: rgb(57, 57, 55);
 }
 
+@media (max-width: 991px) {
+  .svg-NavLogo {
+    width: 70%;
+  }
+}
+
 .svg-home-logo {
   width: 30%;
   padding-top: 0px;
   margin-top: 0px;
+  display: inline-block;
+}
+
+@media (max-width: 991px) {
+  .svg-home-logo {
+    width: 40%;
+    padding-top: 0px;
+    margin-top: 0px;
+    display: inline-block;
+  }
+}
+
+@media (max-width: 991px) {
+  .nav-link-style  {
+    padding: 10px;
+    width: fit-content;
+  }
+}
+
+@media (max-width: 991px) {
+  .nav-link-style:hover  {
+    border-radius: 20px;
+    background-color: rgb(216, 203, 203);
+    width: fit-content;
+    padding: 10px;
+  }
 }
