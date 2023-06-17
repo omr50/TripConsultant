@@ -1,10 +1,27 @@
 .nav-head {
   background-color: white !important;
-  width: 90%;
+  width: 1200px;
   display: flex;
   justify-content: center;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  padding-bottom: 50px;
+}
+
+@media (max-width: 1199px) {
+  .nav-head {
+    background-color: white !important;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    padding-bottom: 50px;
+  }
 }
 
 .nav-link-style {
@@ -37,14 +54,18 @@
 @media (max-width: 991px) {
   .svg-NavLogo {
     width: 70%;
+    position: relative;
   }
 }
 
 .svg-home-logo {
-  width: 30%;
+  width: 15%;
   padding-top: 0px;
   margin-top: 0px;
   display: inline-block;
+  position: absolute;
+  top: 10%;
+  left: 0px;
 }
 
 @media (max-width: 991px) {
@@ -71,3 +92,15 @@
     padding: 10px;
   }
 }
+
+.right-sided-links {
+  position: absolute;
+  right: 0px;
+}
+
+@media (max-width: 991px) {
+.right-sided-links {
+  position: relative;
+}
+}
+

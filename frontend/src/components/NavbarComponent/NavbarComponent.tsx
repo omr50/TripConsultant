@@ -39,6 +39,7 @@ const NavigationBar: React.FC<ChildProp>= (props) => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
           </Nav>
+          <span className='right-sided-links'>
           <Nav>
           <Nav.Link href="#features" className='nav-link-style'>              
             <svg viewBox="0 0 24 24" width="18px" height="18px" className="review-svg">
@@ -71,6 +72,8 @@ const NavigationBar: React.FC<ChildProp>= (props) => {
               {authContext.isAuthenticated ? <img style={{borderRadius: '50%', width: '50%', minWidth: '50px', maxWidth: '60px'}} src='https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/f6/e7/3d/default-avatar-2020-55.jpg?w=100&h=-1&s=1'/> : <Button className="signin-button-user-password end" onClick={props.closeorOpenForm}>Sign in</Button>}
             </Nav.Link>
           </Nav>
+          </span>
+
         </Navbar.Collapse>
         </Container>
     </Navbar>

@@ -1,0 +1,176 @@
+.whole-page {
+  width: 1200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+.home-page {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  scroll-behavior: smooth;
+}
+
+@media (max-width: 1199px) {
+  .whole-page {
+    width: 90%;
+  }
+  .home-page {
+    width: 100%;
+  }
+}
+
+.category-tab {
+  flex-grow: 1;
+  width: 13%;
+  max-height: 9vh;
+  min-height: 80px;
+  border: 1px solid black;
+  border-color: black;
+  border-width: 2px;
+  background-color: white;
+  text-align: left;
+  border-radius: 20px;
+  margin: 10px 10px;
+  position: relative;
+  transition: background-color 0.5s;
+  transition: fill 0.5s;
+  transition: color 0.2s;
+  font-weight: 600;
+  font-size: small;
+}
+
+@media (max-width: 1199px) {
+  .category-tab {
+    width: 30%;
+  }
+}
+
+@media (max-width: 991px) {
+  .home-page {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow: hidden;
+    justify-content: left;
+  }
+  .category-tab {
+    min-width: 160px;
+    min-height: 50px;
+    flex-wrap: nowrap;
+  }
+  
+  .home-search-img {
+    height: 250px;
+    object-fit: cover;
+    justify-content: center;
+  }
+
+  .search-bar {
+    text-indent: 15%;
+    min-width: 80%
+  }
+
+  .search-svg {
+  left: 12% !important;
+  }
+
+}
+
+@media (max-width: 400px) {
+  .search-bar {
+    text-indent: 12% !important;
+    }
+}
+
+.category-tab:hover{
+  background-color: black;
+  border-color: white;
+  color: white;
+  cursor: pointer;
+  fill: white;
+}
+
+.category-text {
+  padding-top: 20px;
+  margin-left: 10px;
+  font-size: medium;
+}
+
+.category-img {
+  position: absolute;
+  top: 1px;
+  right: 10px;
+}
+
+.home-search-img {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.scroll-left {
+  position: absolute;
+  top: 7px;
+  left: 0px;
+  font-size: 35px;
+  cursor: pointer;
+  z-index: 2;
+  padding: 0px 5px 5px 5px;
+  background-image: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0.5)); 
+  user-select:none;
+}
+
+.scroll-right {
+  position: absolute;
+  top: 7px;
+  right: 0px;
+  font-size: 35px;
+  cursor: pointer;
+  z-index: 2;
+  padding: 0px 5px 5px 5px;
+  background-image: linear-gradient(to right, rgba(255,255,255,0.5), rgba(255,255,255,1)); 
+  user-select:none;
+}
+
+.img-container {
+  position: relative;
+  background-color: pink;
+}
+
+.scroll-left:hover {
+  color: rgb(205, 157, 157);
+}
+
+.scroll-right:hover {
+  color: rgb(205, 157, 157);
+}
+
+.search-bar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  border-radius: 20px;
+  border: 0px solid black;
+  padding: 10px 2px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
+                0px 8px 16px rgba(0, 0, 0, 0.1);
+  text-indent: 3em;
+  outline: none;
+
+}
+
+
+.search-svg {
+  position: absolute;
+  top: 48%;
+  left: 22%;
+  font-size: larger;
+}

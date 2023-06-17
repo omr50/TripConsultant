@@ -3,7 +3,7 @@ import { ReactNode, useState } from 'react'
 import { useAuth } from './auth/AuthContext';
 import { Navigate } from 'react-router-dom'
 import AuthProvider from './auth/AuthContext';
-import WelcomeComponent from './WelcomeComponent';
+import WelcomeComponent from './welcome/WelcomeComponent';
 import LoginComponent from './loginComponent/LoginComponent';
 import SignupComponent from './SignupComponent';
 import NavigationBar from './NavbarComponent/NavbarComponent';

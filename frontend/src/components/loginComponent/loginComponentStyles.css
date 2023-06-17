@@ -7,7 +7,7 @@
   position: fixed;
   font-size: 20px;
   border-radius: 20px;
-  margin-top: 50px;
+  margin-top: 10px;
   left: 50%;
   transform: translateX(-50%);
   width: 28%;
@@ -19,6 +19,25 @@
   z-index: 1001; 
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
 }
+
+@media (max-width: 400px) {
+  .Login {
+    min-width: 300px;
+    max-width: 95%;
+  }
+}
+
+@media (max-height: 700px) {
+  .Login {
+    margin-top: 0px;
+    margin-bottom: 5px;
+  }
+
+  .form-group{
+    width:70%;
+    padding-top: 7px;
+}
+} 
 
 .close-button {
   font-size: 20px;
@@ -101,7 +120,7 @@
 
 .form-group{
     width:70%;
-    padding-top: 27px;
+    padding-top: 7px;
 }
 
 .forgot-link {
