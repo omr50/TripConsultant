@@ -113,6 +113,9 @@ function WelcomeComponent() {
           <svg viewBox="0 0 24 24" width="1em" height="1em" className="search-svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.74 3.75a5.99 5.99 0 100 11.98 5.99 5.99 0 000-11.98zM2.25 9.74a7.49 7.49 0 1113.3 4.728l5.44 5.442-1.06 1.06-5.44-5.439A7.49 7.49 0 012.25 9.74z"></path></svg>
         </form>
     </div>
+    <div className="img-container2">
+      <img className="top-hotels-image" src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/29/69/c9/b9/caption.jpg?w=1200&amp;h=1600&amp;s=1" role="none" alt="" loading="lazy" width="1200" height="1400"></img>
+    </div>
     </div>
   )
 }

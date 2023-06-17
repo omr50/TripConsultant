@@ -1,5 +1,5 @@
 .whole-page {
-  width: 1200px;
+  width: 1000px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,9 +12,10 @@
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 1200px;
+  width: 1000px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 20px;
   scroll-behavior: smooth;
 }
 
@@ -81,6 +82,12 @@
   left: 12% !important;
   }
 
+  .top-hotels-image {
+    height: 250px;
+    object-fit: cover;
+    justify-content: center;
+  }
+
 }
 
 @media (max-width: 400px) {
@@ -111,7 +118,6 @@
 
 .home-search-img {
   width: 100%;
-  margin-top: 20px;
 }
 
 .scroll-left {
@@ -141,6 +147,17 @@
 .img-container {
   position: relative;
   background-color: pink;
+  max-height: fit-content;
+  overflow: hidden;
+
+}
+
+.img-container2 {
+  position: relative;
+  background-color: white;
+  max-height: fit-content;
+  overflow: hidden;
+
 }
 
 .scroll-left:hover {
@@ -170,7 +187,15 @@
 
 .search-svg {
   position: absolute;
-  top: 48%;
+  top: 47%;
   left: 22%;
   font-size: larger;
+}
+
+.top-hotels-image {
+  width: 100%;      /* Allow the image to scale with its original aspect ratio */
+  height: 100%;     /* Set the height to 100% to fill the container vertically */
+  object-fit: cover; /* Preserve the image's aspect ratio and cut off the excess height */
+  max-height: 350px;
+  margin: 20px 0px;
 }
