@@ -114,7 +114,14 @@ function WelcomeComponent() {
         </form>
     </div>
     <div className="img-container2">
-      <img className="top-hotels-image" src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/29/69/c9/b9/caption.jpg?w=1200&amp;h=1600&amp;s=1" role="none" alt="" loading="lazy" width="1200" height="1400"></img>
+      <img className="top-hotels-image" src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/cd/50/0f/romance-hotel-boutique.jpg?w=1200&h=-1&s=1" role="none" alt="" loading="lazy" width="1200" height="1400"></img>
+      <div className="top-hotels-title">Travelers' Choice of the Best Hotels</div>
+      <div className="top-hotels-subtitle">See our top 1%, powered by real reviews.</div>
+      <Button className="top-hotels-button">See the list</Button>
+    </div>
+    <div>
+      {/* Build a basic end point that will get 7 or 8 random hotels and their photo and show em. */}
+    You might like these
     </div>
     </div>
   )
