@@ -359,3 +359,46 @@
   height: 100%;
   z-index: 1;
 }
+
+.hotel-result-image {
+  width: 30px;
+  height: 30px;
+}
+
+.query-results-container {
+  position: inherit;
+  width: 100%;
+  left: 5%;
+  margin-top: 10px;
+}
+
+.underline {
+  position: inherit;
+  width: 90%;
+  border: none;
+  border-top: 2px solid black;
+}
+
+.underline-light {
+  position: inherit;
+  width: 90%;
+  border: none;
+  border-top: 1px solid rgb(195, 185, 185);
+  margin-top: 2px;
+}
+
+.hotel-result {
+  margin-top: 15px;
+}
+
+.location-svg {
+  border-radius: 100%;
+  border: 1px solid gray;
+  padding: 5px;
+  width:30px;
+  height: 30px;
+}
+
+.region-result {
+  margin-top: 15px;
+}

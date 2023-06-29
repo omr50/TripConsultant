@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef  } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom"
 import LoginComponent from "../loginComponent/LoginComponent";
 import "./WelcomeStyles.css"
@@ -18,7 +18,7 @@ function WelcomeComponent() {
   const [suggestedHotels, setSuggestedHotels] = useState([])
   const [search, setSearch] = useState('')
   const [hotelResult, setHotelResult] = useState([])
-  const [regionResult, setRegionResult] = useState([])
+  const [regionResult, setRegionResult] = useState<string>('')
   const [searchStyles, setSearchStyles] = useState({})
   const [clicked, setClicked] = useState(false)
   useEffect(()=> {
@@ -121,12 +121,12 @@ function WelcomeComponent() {
     console.log('query:', query)
     if (!query && !clicked){
       setHotelResult([])
-      setRegionResult([])
+      setRegionResult('')
       setSearchStyles({})
     }
     else if (!query){
       setHotelResult([])
-      setRegionResult([])
+      setRegionResult('')
       console.log('set back to empty')
     }
 
@@ -135,6 +135,9 @@ function WelcomeComponent() {
       boxShadow: 'none',
       borderRadius: '25px 25px 0px 0px'
     })
+    }
+    else {
+      setSearchStyles({})
     }
     const body = {'query': query}
     if (query) {
@@ -170,17 +173,60 @@ function WelcomeComponent() {
     <div className="search-container">
       <div className="img-container">
         <img className='home-search-img' src="https://static.tacdn.com/img2/brand/home/homemar2022_dt_trans.png"></img>
+
         <form>
           <input placeholder="Where to?" style={searchStyles} className="search-bar" onChange={(event)=>{handleChange(event.target.value)}} onClick={()=>{setClicked(true)}}></input>
           <svg viewBox="0 0 24 24" width="1em" height="1em" className="search-svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.74 3.75a5.99 5.99 0 100 11.98 5.99 5.99 0 000-11.98zM2.25 9.74a7.49 7.49 0 1113.3 4.728l5.44 5.442-1.06 1.06-5.44-5.439A7.49 7.49 0 012.25 9.74z"></path></svg>
         </form>
-
       </div>
       {(clicked) && <div className="query-results">
+      <Container>
+
+        <div className="query-results-container">
+        <div className="underline"></div>
           {hotelResult.map((item: any) => (
-          <div key={item._id}>{item.name}</div>
+            <Row className="hotel-result">
+              <Col xs={1}>
+                <img src={item.images[0]} className="hotel-result-image"></img>
+              </Col>
+              <Col>
+
+              <Row>
+                {item.name}
+              </Row>
+              
+              <Row className="hotel-result">
+                {item.region.map((region: string, index: number) =>{
+                  if (index < item.region.length - 2) {
+                    if (index < item.region.length - 3 ){
+                    return <p style={{width: 'fitContent', margin: '0px', padding: '0px'}}>{region.substring(0, region.length-2)},&#xa0;</p>
+                    }
+                    else {
+                      return <p style={{width: 'fitContent', margin: '0px', padding: '0px'}}> {region}</p>
+                    }
+                  }
+                })}
+
+              </Row>
+              </Col>
+                <div className="underline-light"></div>
+
+          </Row>
           ))}
-          <div>{regionResult}</div>
+
+          {regionResult && <div className="region-result">
+            <Row>
+            <Col xs={1}>
+              <svg className="location-svg" viewBox="0 0 24 24" width="24px" height="24px"><path d="M11.277 20.26l.53-.532-.53.532zm.035.035l.537-.524-.008-.008-.53.532zM12 21l-.537.524.529.542.537-.534L12 21zm.688-.684l.529.532.002-.002-.53-.53zm.303-8.458l-.287-.693.287.693zm-1.98-4.783l-.288-.693.287.693zM12 2.25c-4.262 0-7.75 3.46-7.75 7.707h1.5c0-3.41 2.808-6.207 6.25-6.207v-1.5zM4.25 9.957c0 2.269 1.128 4.455 2.452 6.292 1.335 1.85 2.947 3.45 4.047 4.543l1.057-1.064c-1.108-1.1-2.634-2.62-3.887-4.356-1.262-1.75-2.169-3.62-2.169-5.415h-1.5zm6.499 10.835l.034.035 1.058-1.064-.035-.035-1.057 1.064zm.026.026l.688.706 1.074-1.048-.688-.705-1.074 1.047zm1.754.714l.688-.684-1.058-1.064-.688.684 1.058 1.064zm.69-.686c1.096-1.098 2.717-2.706 4.06-4.566 1.333-1.846 2.471-4.043 2.471-6.323h-1.5c0 1.806-.916 3.685-2.187 5.445-1.262 1.747-2.797 3.275-3.905 4.384l1.06 1.06zm6.531-10.89c0-4.246-3.488-7.706-7.75-7.706v1.5c3.442 0 6.25 2.797 6.25 6.207h1.5zm-6.051-1.193a1.838 1.838 0 01-.995 2.402l.574 1.386a3.338 3.338 0 001.807-4.362l-1.386.574zm-.995 2.402a1.838 1.838 0 01-2.402-.995l-1.386.574a3.338 3.338 0 004.362 1.807l-.574-1.386zm-2.402-.995a1.838 1.838 0 01.995-2.402l-.574-1.386a3.338 3.338 0 00-1.807 4.362l1.386-.574zm.995-2.402a1.838 1.838 0 012.402.995l1.386-.574a3.338 3.338 0 00-4.362-1.807l.574 1.386z"></path></svg>
+            </Col>
+            <Col style={{width: 'fitContent', margin: '0px', padding: '0px'}}>
+              {regionResult}
+            </Col>
+            </Row>
+          </div>}
+          </div>
+          </Container>
+
         </div>}
     </div>
     <div className="img-container2">
