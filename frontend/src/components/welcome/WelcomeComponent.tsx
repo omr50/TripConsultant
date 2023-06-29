@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom"
 import LoginComponent from "../loginComponent/LoginComponent";
 import "./WelcomeStyles.css"
 import CategoryTab from "./CategoryTabComponent";
+import axios from "axios";
+import { apiClient } from "../api/ApiClient";
+import HotelCard from "../HotelCardComponent/HotelCardComponent";
 
 function WelcomeComponent() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -12,6 +15,24 @@ function WelcomeComponent() {
   const [left, setLeft] = useState(true)
   const [right, setRight] = useState(true)
   const [scrolled, setScrolled] = useState(0)
+  const [suggestedHotels, setSuggestedHotels] = useState([])
+  const [search, setSearch] = useState('')
+  const [hotelResult, setHotelResult] = useState([])
+  const [regionResult, setRegionResult] = useState([])
+  const [searchStyles, setSearchStyles] = useState({})
+  const [clicked, setClicked] = useState(false)
+  useEffect(()=> {
+    apiClient.get("/hotels/suggestions")
+    .then((response)=> {
+      if (response){
+        console.log(response.data)
+        setSuggestedHotels(response.data)
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }, [])
 
   useEffect(() => {
     const handleResize = () => {
@@ -93,7 +114,47 @@ function WelcomeComponent() {
     }
   };
 
+  function handleChange(query: string) {
+    // Every time the user types something, make a request searching for that results
+    // on the backend.
+    setSearch(query)
+    console.log('query:', query)
+    if (!query && !clicked){
+      setHotelResult([])
+      setRegionResult([])
+      setSearchStyles({})
+    }
+    else if (!query){
+      setHotelResult([])
+      setRegionResult([])
+      console.log('set back to empty')
+    }
+
+    if (clicked) {
+    setSearchStyles({
+      boxShadow: 'none',
+      borderRadius: '25px 25px 0px 0px'
+    })
+    }
+    const body = {'query': query}
+    if (query) {
+    apiClient.post('/search', body)
+    .then((res)=>{
+      console.log(query, 'aaa')
+      setHotelResult(res.data.matchingHotels)
+      setRegionResult(res.data.uniqueRegion)
+      console.log(res.data)
+    })
+    .catch(e=>console.log(e))
+  }
+  }
+
+  useEffect(
+    ()=>handleChange(search), [search, clicked]
+  )
   return (
+    <div>
+    {clicked && <div className="page-white" onClick={(e)=>{setClicked(false)}}></div>}
     <div className="whole-page">
     <div className="home-page" ref={containerRef}>
       {pageWidth < 992 && left ? <span onClick={scrollToLeft} className="scroll-left">&#x3c;</span> : ""}
@@ -106,12 +167,21 @@ function WelcomeComponent() {
         <CategoryTab text={'Travel'} img={<svg viewBox="0 0 24 24" width="24px" height="24px"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.566 11.25h4.873c-.07-1.831-.397-3.448-.87-4.628-.268-.672-.57-1.165-.865-1.478-.25-.264-.458-.364-.62-.388H11.922c-.161.024-.37.124-.62.388-.296.313-.597.806-.866 1.478-.472 1.18-.798 2.797-.869 4.628zm-.133-6.027a8.259 8.259 0 00-.39.841c-.554 1.385-.907 3.198-.978 5.186H4.788a7.252 7.252 0 014.645-6.027zm2.393-1.965C7.078 3.348 3.25 7.226 3.25 12a8.744 8.744 0 008.747 8.75c4.833 0 8.753-3.918 8.753-8.75a8.741 8.741 0 00-8.57-8.742 2.079 2.079 0 00-.354 0zm2.746 1.965c.142.263.272.545.39.841.554 1.385.907 3.198.978 5.186h3.272a7.248 7.248 0 00-4.64-6.027zm4.64 7.527H15.94c-.071 1.988-.424 3.8-.977 5.185-.12.298-.25.581-.393.845a7.259 7.259 0 004.642-6.03zm-9.774 6.036a8.244 8.244 0 01-.395-.851c-.554-1.384-.907-3.197-.978-5.185H4.788a7.25 7.25 0 004.65 6.036zm5.001-6.036c-.07 1.83-.397 3.448-.87 4.628-.268.671-.57 1.164-.865 1.477-.295.312-.532.395-.701.395-.17 0-.407-.083-.701-.395-.297-.313-.598-.806-.867-1.477-.472-1.18-.798-2.797-.869-4.628h4.873z"></path></svg>}/>
         <CategoryTab text={'More'} img={<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0"><circle cx="4.5" cy="11.9" r="2.5"></circle><circle cx="19.5" cy="11.9" r="2.5"></circle><circle cx="12" cy="11.9" r="2.5"></circle></svg>}/>
     </div>
-    <div className="img-container">
+    <div className="search-container">
+      <div className="img-container">
         <img className='home-search-img' src="https://static.tacdn.com/img2/brand/home/homemar2022_dt_trans.png"></img>
         <form>
-          <input className="search-bar"></input>
+          <input placeholder="Where to?" style={searchStyles} className="search-bar" onChange={(event)=>{handleChange(event.target.value)}} onClick={()=>{setClicked(true)}}></input>
           <svg viewBox="0 0 24 24" width="1em" height="1em" className="search-svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.74 3.75a5.99 5.99 0 100 11.98 5.99 5.99 0 000-11.98zM2.25 9.74a7.49 7.49 0 1113.3 4.728l5.44 5.442-1.06 1.06-5.44-5.439A7.49 7.49 0 012.25 9.74z"></path></svg>
         </form>
+
+      </div>
+      {(clicked) && <div className="query-results">
+          {hotelResult.map((item: any) => (
+          <div key={item._id}>{item.name}</div>
+          ))}
+          <div>{regionResult}</div>
+        </div>}
     </div>
     <div className="img-container2">
       <img className="top-hotels-image" src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/cd/50/0f/romance-hotel-boutique.jpg?w=1200&h=-1&s=1" role="none" alt="" loading="lazy" width="1200" height="1400"></img>
@@ -119,9 +189,28 @@ function WelcomeComponent() {
       <div className="top-hotels-subtitle">See our top 1%, powered by real reviews.</div>
       <Button className="top-hotels-button">See the list</Button>
     </div>
+    <h2 className="suggestions">You might like these</h2>
+
+    <div style={{position:'relative'}}>
+      <div className="back-arrow-circle"></div>
+      <div className="back-arrow">&#x2190;</div>
+
+      <div className="next-arrow-circle"></div>
+      <div className="next-arrow">&#x2192;</div>
+
+    <div className="hotel-carousel">
+
+      {/* Build a basic end point that will get 8 random hotels and their photo and show em. */}
+      {
+        suggestedHotels.map((item: any) => (
+          <HotelCard key={item.id} hotelItem={item} />
+        ))
+      }
+    </div>
+    </div>
     <div>
-      {/* Build a basic end point that will get 7 or 8 random hotels and their photo and show em. */}
-    You might like these
+      List a bunch of cities and stuff you can explore there
+    </div>
     </div>
     </div>
   )

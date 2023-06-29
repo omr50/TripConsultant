@@ -10,6 +10,8 @@ import { auth } from './middleware/auth';
 import signupRouter from './routes/auth/signup';
 import loginRouter from './routes/auth/login';
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
+import hotelRouter from './routes/hotels/hotels';
+import searchRouter from './routes/search/search';
 const cors = require('cors');
 connectDB()
 
@@ -28,6 +30,8 @@ app.use(cors({
 }));
 app.use('/signup', signupRouter)
 app.use('/login', loginRouter)
+app.use('/hotels', hotelRouter)
+app.use('/search', searchRouter)
 
 
 app.get('/', async (req: Request, res: Response) => {
